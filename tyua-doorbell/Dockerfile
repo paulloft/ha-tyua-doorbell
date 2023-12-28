@@ -1,7 +1,8 @@
 FROM node:alpine
 
-COPY rootfs /
+WORKDIR /app
+COPY app ./
 
-RUN npm install
+RUN npm i
 
 CMD ["node", "index.js"]

@@ -1,0 +1,5 @@
+{
+    "dependencies": {
+        "tuya-ws": "^0.0.1"
+    }
+}

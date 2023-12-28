@@ -1,0 +1,15 @@
+configuration:
+  tuya_client_id:
+    name: Tuya API CLIENT_ID
+    description: Get-it from the Tuya dashboard
+  tuya_client_secret:
+    name: Tuya API CLIENT_SECRET
+    description: Get-it from the Tuya dashboard
+  tuya_device_id:
+    name: Doorbell device ID
+    description: You can get-it from the app
+  tuya_region:
+    name: Tuya server region
+  log_level:
+    name: Log level
+    description: The amount of logging the add-on should do

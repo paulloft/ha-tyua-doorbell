@@ -1,0 +1,31 @@
+name: Tuya doorbell notifications
+version: 1.0.0
+slug: doorbell
+description: Homeassistant proxy server for Tuya doorbell notifications
+url: https://github.com/paulloft/ha-tyua-doorbell
+codenotary: info@paulloft.ru
+
+arch:
+  - armhf
+  - armv7
+  - aarch64
+  - amd64
+  - i386
+
+options:
+  tuya_client_id: null
+  tuya_client_secret: null
+  tuya_device_id: null
+  tuya_region: eu
+  webhook_url: ""
+  log_level: error
+schema:
+  tuya_client_id: str
+  tuya_client_secret: str
+  tuya_device_id: str
+  tuya_region: list(cn|us|eu|in)
+  webhook_url: str
+  log_level: list(debug|info|warning|error|fatal)
+
+init: false
+stdin: true

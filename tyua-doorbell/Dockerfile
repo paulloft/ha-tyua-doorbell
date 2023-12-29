@@ -6,6 +6,9 @@ FROM ${BUILD_FROM}
 RUN apk add --no-cache nodejs npm
 
 COPY rootfs /
+RUN chmod a+x /run.sh
 
 WORKDIR /app
 RUN npm i
+
+CMD [ "/run.sh" ]

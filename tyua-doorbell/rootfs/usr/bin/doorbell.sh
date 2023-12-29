@@ -6,4 +6,6 @@ TUYA_DEVICE_ID=$(bashio::config 'tuya_device_id')
 TUYA_REGION=$(bashio::config 'tuya_region')
 WEBHOOK_URL=$(bashio::config 'webhook_url')
 
-node index.js
+LOG_LEVEL=$(bashio::config 'log_level')
+
+node /app/index.js

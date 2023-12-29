@@ -5,8 +5,7 @@ FROM ${BUILD_FROM}
 
 RUN apk add --no-cache nodejs npm
 
-WORKDIR /app
-COPY app ./
-RUN npm i
+COPY rootfs /
 
-ENTRYPOINT [ "/app/entrypoint.sh" ]
+WORKDIR /app
+RUN npm i

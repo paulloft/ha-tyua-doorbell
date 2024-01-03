@@ -10,6 +10,9 @@ configuration:
     description: You can get-it from the app
   tuya_region:
     name: Tuya server region
+  webhook_id:
+    name: Home Assistant Webhook identifier
+    description: Get it on the create automation page
   log_level:
     name: Log level
     description: The amount of logging the add-on should do

@@ -1,1 +1,3 @@
-tyua-doorbell/rootfs/app/node_modules
+tyua-doorbell/app/node_modules
+.devcontainer/
+.vscode/

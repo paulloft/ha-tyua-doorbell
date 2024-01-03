@@ -4,6 +4,7 @@ slug: doorbell
 description: Homeassistant proxy server for Tuya doorbell notifications
 url: https://github.com/paulloft/ha-tyua-doorbell
 codenotary: info@paulloft.ru
+init: false
 
 arch:
   - armhf

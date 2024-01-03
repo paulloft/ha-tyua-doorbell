@@ -1,6 +1,17 @@
 const TuyaWebsocket = require('tuya-ws').default;
 const https = require('https');
 
+const logDebug = (message, ...args) => {
+    if (process.env.LOG_LEVEL === 'debug') {
+        console.log(message, ...args);
+    }
+}
+const logInfo = (message, ...args) => {
+    if (process.env.LOG_LEVEL === 'debug' || process.env.LOG_LEVEL === 'info') {
+        console.log(message, ...args);
+    }
+}
+
 const validateEnv = () => {
     const requiredEnvVariables = ['TUYA_CLIENT_ID', 'TUYA_CLIENT_SECRET', 'TUYA_REGION', 'TUYA_DEVICE_ID', 'WEBHOOK_ID'];
     const invalidEnvVariables = [];
@@ -28,11 +39,8 @@ const sendWebhook = (payload) => {
 }
 
 const handleMessage = (decodedMessage) => {
-    console.log(decodedMessage?.payload?.data?.status);
     if (decodedMessage?.payload?.data?.devId == process.env.TUYA_DEVICE_ID && decodedMessage?.payload?.data?.bizCode === 'event_notify') {
-        if (process.env.LOG_LEVEL === 'info') {
-            console.log(decodedMessage?.payload?.data, { messageId: decodedMessage.messageId });
-        }
+        logDebug(decodedMessage?.payload?.data, { messageId: decodedMessage.messageId });
         sendWebhook(decodedMessage?.payload?.data);
     }
 }
@@ -48,23 +56,23 @@ const client = new TuyaWebsocket({
 });
 
 client.open(() => {
-    console.info('connected');
+    logInfo('connected');
 });
 
 client.message((ws, message) => {
     client.ackMessage(message.messageId);
     handleMessage(message);
     if (process.env.LOG_LEVEL === 'debug') {
-        console.log(message);
+        logDebug(message);
     }
 });
 
 client.reconnect(() => {
-    console.info('reconnected');
+    logInfo('reconnected');
 });
 
 client.close((ws, ...args) => {
-    console.info('connection closed', ...args);
+    logInfo('connection closed', ...args);
 });
 
 client.error((ws, error) => {

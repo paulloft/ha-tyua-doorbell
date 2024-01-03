@@ -1,5 +1,5 @@
 const TuyaWebsocket = require('tuya-ws').default;
-const https = require('https');
+const http = require('http');
 
 const logDebug = (message, ...args) => {
     if (process.env.LOG_LEVEL === 'debug') {
@@ -27,14 +27,16 @@ const validateEnv = () => {
 };
 
 const sendWebhook = (payload) => {
-    const request = https.request({
-        protocol: 'http',
+    const request = http.request({
+        hostname: 'homeassistant',
         method: 'POST',
-        hostname: 'homeassistant.local.hass.io',
         port: 8123,
-        path: `/api/webhook/${WEBHOOK_ID}`,
+        path: `/api/webhook/${process.env.WEBHOOK_ID}`,
     });
     request.write(JSON.stringify(payload));
+    request.on('error', (e) => {
+        console.error(e);
+    });
     request.end();
 }
 

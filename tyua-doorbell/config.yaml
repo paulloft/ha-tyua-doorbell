@@ -16,7 +16,7 @@ options:
   tuya_client_id: null
   tuya_client_secret: null
   tuya_device_id: null
-  webhook_url: null
+  webhook_id: null
   tuya_region: eu
   log_level: error
 schema:
@@ -24,8 +24,5 @@ schema:
   tuya_client_secret: str
   tuya_device_id: str
   tuya_region: list(cn|us|eu|in)
-  webhook_url: str
+  webhook_id: str
   log_level: list(debug|info|warning|error|fatal)
-
-init: false
-stdin: true

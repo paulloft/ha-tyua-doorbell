@@ -2,7 +2,7 @@ const TuyaWebsocket = require('tuya-ws').default;
 const https = require('https');
 
 const validateEnv = () => {
-    const requiredEnvVariables = ['TUYA_CLIENT_ID', 'TUYA_CLIENT_SECRET', 'TUYA_REGION', 'TUYA_DEVICE_ID', 'WEBHOOK_URL'];
+    const requiredEnvVariables = ['TUYA_CLIENT_ID', 'TUYA_CLIENT_SECRET', 'TUYA_REGION', 'TUYA_DEVICE_ID', 'WEBHOOK_ID'];
     const invalidEnvVariables = [];
     requiredEnvVariables.forEach((envVariable) => {
         if (!process.env[envVariable]) {
@@ -16,15 +16,13 @@ const validateEnv = () => {
 };
 
 const sendWebhook = (payload) => {
-    const endpointParts = process.env.WEBHOOK_URL.split('/');
-    const options = {
-        protocol: endpointParts[0],
+    const request = https.request({
+        protocol: 'http',
         method: 'POST',
-        hostname: endpointParts[2].split(':')[0],
-        port: endpointParts[2].split(':').length == 2 ? endpointParts[2].split(':')[1] : (endpointParts[0] == 'https:' ? 443 : 80),
-        path: `/${endpointParts.slice(3, endpointParts.length).join('/')}`,
-    };
-    const request = https.request(options);
+        hostname: 'homeassistant.local.hass.io',
+        port: 8123,
+        path: `/api/webhook/${WEBHOOK_ID}`,
+    });
     request.write(JSON.stringify(payload));
     request.end();
 }
